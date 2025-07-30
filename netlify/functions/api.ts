@@ -13,5 +13,5 @@ api.use(cors());
 api.use(xhub({ algorithm: 'sha1', secret: process.env.APP_SECRET }))
 api.use(bodyParser.json());
 
-api.use('/api', instagram);
+api.use('/api/instagram', instagram);
 export const handler = ServerlessHttp(api);

@@ -4,12 +4,6 @@ const instagram = express.Router();
 
 instagram.get('/', (req, res) => {
     res.json({
-        message: "Landing page"
-    });
-})
-
-instagram.get('/instagram', (req, res) => {
-    res.json({
         message: "I just found instagram!!"
     });
 })
