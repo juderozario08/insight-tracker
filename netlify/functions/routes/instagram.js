@@ -3,11 +3,15 @@ import express from 'express';
 const instagram = express.Router();
 
 instagram.get('/', (req, res) => {
-    res.send("Landing page");
+    res.json({
+        message: "Landing page"
+    });
 })
 
 instagram.get('/instagram', (req, res) => {
-    res.send('I just found instagram!!');
+    res.json({
+        message: "I just found instagram!!"
+    });
 })
 
 export default instagram;
