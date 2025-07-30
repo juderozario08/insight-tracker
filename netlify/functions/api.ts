@@ -13,6 +13,9 @@ api.use(cors());
 api.use(xhub({ algorithm: 'sha1', secret: process.env.APP_SECRET }))
 api.use(bodyParser.json());
 
+api.get('/api', (req, res) => {
+    res.send("Landing page");
+})
 
-api.use('/api/', instagram);
+api.use('/.netlify/functions/api/', instagram);
 export const handler = ServerlessHttp(api);
