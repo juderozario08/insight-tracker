@@ -28,7 +28,7 @@ instagram.get('/', (req, res) => {
         res.json({ status: 400 }).status(400);
     }
 })
-instagram.post('/instagram', function(req, res) {
+instagram.post('/', function(req, res) {
     console.log('Instagram request body:');
     console.log(req.body);
     received_updates.unshift(req.body);
