@@ -15,7 +15,7 @@ api.use(cors());
 api.use(xhub({ algorithm: 'sha1', secret: process.env.APP_SECRET }))
 api.use(bodyParser.json());
 
-api.get('/', (req, res) => {
+api.get('/api', (req, res) => {
     console.log(req);
     res.send('<pre>' + JSON.stringify(received_updates, null, 2) + '</pre>');
 });
