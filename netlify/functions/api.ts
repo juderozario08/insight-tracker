@@ -25,15 +25,15 @@ instagram.get('/', (req, res) => {
     if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === token) {
         res.send(req.query['hub.challenge']);
     } else {
-        res.sendStatus(400);
+        res.json({ status: 400 }).status(400);
     }
 })
 instagram.post('/instagram', function(req, res) {
     console.log('Instagram request body:');
     console.log(req.body);
     received_updates.unshift(req.body);
-    res.sendStatus(200);
+    res.json({ status: 200 }).status(200);
 });
-
 api.use('/api/instagram', instagram);
+
 export const handler = ServerlessHttp(api);
