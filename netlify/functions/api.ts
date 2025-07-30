@@ -4,14 +4,36 @@ import cors from 'cors';
 import ServerlessHttp from 'serverless-http';
 import bodyParser from 'body-parser';
 import xhub from 'express-x-hub';
-import instagram from './routes/instagram';
 
 dotenv.config();
 
 const api = express();
+const token = process.env.TOKEN || 'token';
+const received_updates: Request[] = [];
+
 api.use(cors());
 api.use(xhub({ algorithm: 'sha1', secret: process.env.APP_SECRET }))
 api.use(bodyParser.json());
+
+api.get('/', (req, res) => {
+    console.log(req);
+    res.send('<pre>' + JSON.stringify(received_updates, null, 2) + '</pre>');
+});
+
+const instagram = express.Router();
+instagram.get('/', (req, res) => {
+    if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === token) {
+        res.send(req.query['hub.challenge']);
+    } else {
+        res.sendStatus(400);
+    }
+})
+instagram.post('/instagram', function(req, res) {
+    console.log('Instagram request body:');
+    console.log(req.body);
+    received_updates.unshift(req.body);
+    res.sendStatus(200);
+});
 
 api.use('/api/instagram', instagram);
 export const handler = ServerlessHttp(api);
